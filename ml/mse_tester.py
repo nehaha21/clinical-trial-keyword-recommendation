@@ -26,15 +26,17 @@ class MseTester(AbstractTester):
         :param docs: 2-d array. each column vector is a mesh index vector
         :return: mean squared error, mean squared error of relevant
         """
-        mse = []
-        mser = []
+        sum_all = sum_rel = 0.0
+        n_all = n_rel = 0
 
         for col in tqdm(range(docs.shape[1])):
             r = docs[:, col].toarray()
             if np.sum(r) > 0:
                 a, b = self.test(r)
-                mse.extend(a)
-                mser.extend(b)
-        res = (np.mean(mse), np.mean(mser))
+                sum_all += float(np.sum(a, dtype=np.float64))
+                n_all += a.size
+                sum_rel += float(np.sum(b, dtype=np.float64))
+                n_rel += b.size
+        res = (sum_all / n_all, sum_rel / n_rel)
         self._model.mse_test = res
         return res

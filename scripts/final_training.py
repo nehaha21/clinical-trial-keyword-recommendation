@@ -30,7 +30,7 @@ def train_test(dataset: str, params: dict):
 
 
 if __name__ == '__main__':
-    dataset = 'AllPublicXML'
+    dataset = 'ctg-public-xml'
     params = {
         'tau': -1e-3, 'k': 1e3, 'lambda_': 0.01, 'alpha': 0.1, 'max_epoch': 60,
     }
